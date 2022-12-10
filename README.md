@@ -2,30 +2,55 @@
 <!-- README.Rmd is adapted from usethis::use_readme_rmd(). See the source file here on Github: https://github.com/r-lib/usethis/blob/master/inst/templates/project-README -->
 <!-- README.md is generated from README.Rmd. Please edit that file. -->
 
-# \[Your Project\]
+# STORYBOARD!!!
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of \[Your Project\] is to …
-
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-![](README_files/figure-gfm/pressure-1.png)<!-- -->
+    #> .
+    #> ├── CITATION
+    #> ├── Draft-Storyboard.Rmd
+    #> ├── Draft-Storyboard.html
+    #> ├── LICENSE
+    #> ├── README.Rmd
+    #> ├── README.md
+    #> ├── README_files
+    #> │   └── figure-gfm
+    #> │       └── pressure-1.png
+    #> ├── Storyboard.Rproj
+    #> ├── code
+    #> │   ├── 01-import.R
+    #> │   ├── 02-tidy.R
+    #> │   ├── 03-wrangle.R
+    #> │   ├── 04-visualize.R
+    #> │   ├── 05-model.R
+    #> │   ├── 06-communicate.R
+    #> │   └── runall.R
+    #> ├── data
+    #> │   ├── README.md
+    #> │   └── raw
+    #> │       └── nfl_stats.csv
+    #> ├── docs
+    #> │   ├── index.html
+    #> │   ├── index.rmd
+    #> │   └── www
+    #> │       ├── pass_attempts-1.png
+    #> │       ├── pass_graph-1.png
+    #> │       ├── rec yds_graph_scatter-1.png
+    #> │       ├── rec_yds_graph_bubble-1.png
+    #> │       ├── rushing_yards_graph-1.png
+    #> │       └── rushing_yds_leaders-1.png
+    #> ├── requirements.txt
+    #> ├── results
+    #> │   ├── figures
+    #> │   ├── manuscript
+    #> │   └── tables
+    #> └── www
+    #>     ├── pass graph-1.png
+    #>     ├── pass_attempts-1.png
+    #>     ├── pass_graph-1.png
+    #>     ├── rec yds_graph_scatter-1.png
+    #>     ├── rec_yds_graph_bubble-1.png
+    #>     ├── rushing yards graph-1.png
+    #>     ├── rushing_yards_graph-1.png
+    #>     └── rushing_yds_leaders-1.png
