@@ -1,8 +1,8 @@
 ---
-title: "Storyboard Template"
+title: "Josh's NFL Storyboard"
 output: 
   flexdashboard::flex_dashboard:
-    theme: default
+    theme: cosmo
     storyboard: true
 
 ---
@@ -38,23 +38,24 @@ options(
 
 
 ### Background {data-commentary-width=350}
+This data set has been designed by Josh Mannix as a part of JOUR 301.
 
-Background information on the dataset...
+The data shows the correlation between players in the NFL having record setting numbers as far as yards and the amount of opportunities they receive.
 
-```{r}
+Some of the more interesting take aways...
+
+While rushing numbers and rushing attempts had an obvious relationship for running backs it did not translate to receivers or quarterbacks. Many of the receivers put up big numbers with far fewer attempts than  13. On the other end there were many QB's with far more attempts than while very few ever eclipsed the 500 yard mark.
+
+The other trend that I noticed was the rise in passing number over the past 2 decades. In the early 2000's it was relatively rare to see a passer over 57 attempts, but recently it has been far more common.
+
+Data Retrieved From https://github.com/rfordatascience/tidytuesday/blob/master/data/2018/2018-08-28/nfl_2010-2017.csv
 
 
+Raw Data https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-08-28/nfl_2010-2017.csv
 
-
-```
-
-*** 
-
-Additional links or sources...
 
 ### Data {data-commentary-width=350}
 
-Code for obtaining data...
 ```{r NFL_Data, eval=FALSE}
 library(tidyverse)
 library(tidytuesdayR)
@@ -65,8 +66,13 @@ nfl_stats <- NFL_Data$`nfl_2010-2017`
 
 
 ```{r, echo=FALSE}
+# data import for (docs/index.rmd)
 nfl_stats <- readr::read_csv("../data/raw/nfl_stats.csv")
+# data import for final-storyboard.rmd
+# nfl_stats <- readr::read_csv("data/raw/nfl_stats.csv")
+# 
 ```
+
 
 
 ```{r obtaining_rush_data}
@@ -96,27 +102,19 @@ hi_pass %>%
 ```
 
 
-```{r obtaining_data}
-library(tidyverse)
-##install.packages("ggthemes")
-library(ggthemes)
-
-
-
-```
 
 *** 
 
 
 Information about the dataset...
 
-### Graphs {data-commentary-width=400}
+### Rushing Attempts {data-commentary-width=400}
 
 
 
 ```{r rushing_yards_graph, echo=FALSE}
 labs_grp_bubble <- labs(
-    title = "Rushing Attempts Leaders",
+    title = "Rushers Over 33 Attempts",
     x = "Year", y = "Name", 
     size = "Rushing Yards")
 
@@ -139,7 +137,6 @@ ggp2_grp_bubble +
 
 ***
 
-Code for creating graphs...
 
 ```{r, eval=FALSE}
 labs_grp_bubble <- labs(
@@ -164,17 +161,18 @@ ggp2_grp_bubble <- filter(nfl_stats,
     ggthemes::theme_few(
       base_size = 11)
 
+#color is a fill=rush_yds inside the AES funtcion
 
 ggp2_grp_bubble + 
     labs_grp_bubble
 ```
+The size of the bubble is relative to the amount of attempts above 33.
 
+### Rushing Yards {data-commentary-width=400}
 
-### Graphs {data-commentary-width=400}
-
-```{r rushing_yds_leaders}
+```{r rushing_yds_leaders, echo=FALSE}
 labs_scatter <- labs(
-    title = "Highest Rushers",
+    title = "Rushers Over 200 Yards",
     x = "game_year", y = "name)")
 ggp2_scatter <- filter(nfl_stats, rush_yds > 200)|>
     ggplot(
@@ -187,15 +185,35 @@ ggp2_scatter +
 
 ```
 
-### Graphs {data-commentary-width=400}
 
-```{r rec_yds_graph_bubble}
+***
+
+
+```{r, eval=FALSE}
+labs_scatter <- labs(
+    title = "Highest Rushers",
+    x = "game_year", y = "name)")
+ggp2_scatter <- filter(
+  nfl_stats, rush_yds > 200)|>
+    ggplot(
+        aes(x = game_year, 
+            y = name)) +
+    geom_point()
+
+ggp2_scatter + 
+    labs_scatter
+```
+
+
+### Receptions {data-commentary-width=400}
+
+```{r rec_yds_graph_bubble, echo=FALSE}
 labs_grp_bubble <- labs(
-    title = "Receptions >15",
+    title = "Recievers Over 13 Receptions",
     x = "Year", y = "Name", 
     size = "Rushing Yards")
 
-ggp2_grp_bubble <- filter(nfl_stats, rec  > 12) |> 
+ggp2_grp_bubble <- filter(nfl_stats, rec  > 13) |> 
     ggplot(aes(
         x = game_year, y = name)) + 
     geom_point(
@@ -213,11 +231,44 @@ ggp2_grp_bubble +
 
 ```
 
-### Graphs {data-commentary-width=400}
+***
 
-```{r rec yds_graph_scatter}
+
+```{r, eval=FALSE}
+labs_grp_bubble <- labs(
+    title = "Receptions >13",
+    x = "Year", y = "Name", 
+    size = "Rushing Yards")
+
+ggp2_grp_bubble <- filter(
+  nfl_stats, rec  > 13) |> 
+    ggplot(aes(
+        x = game_year, y = name)) + 
+    geom_point(
+        aes(size = rush_yds, fill= name), 
+        show.legend = FALSE,
+        alpha = 2/3, shape = 21,
+        color = "black") +
+   scale_size(range = c(1,7), 
+              name = "rushing yards")+
+    ggthemes::theme_few()
+
+#color is a fill=rush_yds inside the AES funtcion
+
+ggp2_grp_bubble + 
+    labs_grp_bubble
+
+
+```
+
+The Size of the bubble is relative to the amount of receptions above 13.
+
+
+### Reciveing Yards {data-commentary-width=400}
+
+```{r rec yds_graph_scatter, echo=FALSE}
 labs_scatter <- labs(
-    title = "Highest Recivers",
+    title = "Recivers Over 200 Yards",
     x = "game_year", y = "name)")
 ggp2_scatter <- filter(nfl_stats, rec_yds > 200)|>
     ggplot(
@@ -230,15 +281,37 @@ ggp2_scatter +
 
 ```
 
-### Graphs {data-commentary-width=400}
+***
 
-```{r pass_attempts}
+
+```{r, eval=FALSE}
+labs_scatter <- labs(
+    title = "Highest Recivers",
+    x = "game_year", y = "name)")
+ggp2_scatter <- filter(
+  nfl_stats, rec_yds > 200)|>
+    ggplot(
+        aes(x = game_year, 
+            y = name)) +
+    geom_point()
+
+ggp2_scatter + 
+    labs_scatter
+
+```
+
+
+
+
+### Pass Attempts {data-commentary-width=400}
+
+```{r pass_attempts, echo=FALSE}
 labs_grp_bubble <- labs(
-    title = "Pass Attempt Leaders",
+    title = "Passers Over 57 Attempts",
     x = "Year", y = "Name", 
     size = "Rushing Yards")
 
-ggp2_grp_bubble <- filter(nfl_stats, pass_att  > 55) |> 
+ggp2_grp_bubble <- filter(nfl_stats, pass_att  > 57) |> 
     ggplot(aes(
         x = game_year, y = name)) + 
     geom_point(
@@ -248,18 +321,48 @@ ggp2_grp_bubble <- filter(nfl_stats, pass_att  > 55) |>
    scale_size(range = c(1,7), name = "rushing yards")+
     ggthemes::theme_few()
 
-#color is a fill=rush_yds inside the AES funtcion
 
 ggp2_grp_bubble + 
     labs_grp_bubble
 
 ```
 
-### Graphs {data-commentary-width=400}
+***
 
-```{r pass_graph}
+
+```{r, eval=FALSE}
+labs_grp_bubble <- labs(
+    title = "Pass Attempt Leaders",
+    x = "Year", y = "Name", 
+    size = "Rushing Yards")
+
+ggp2_grp_bubble <- filter(
+  nfl_stats, pass_att  > 57) |> 
+    ggplot(aes(
+        x = game_year, y = name)) + 
+    geom_point(
+        aes(size = rush_yds, fill= name), 
+        show.legend = FALSE,
+        alpha = 2/3, shape = 21,
+        color = "black") +
+   scale_size(range = c(1,7),
+              name = "rushing yards")+
+    ggthemes::theme_few()
+
+
+ggp2_grp_bubble + 
+    labs_grp_bubble
+
+```
+The size of the bubble is relative to the amount of pass attmepts over 57.
+
+
+
+### Passing Yards {data-commentary-width=400}
+
+```{r pass_graph, echo=FALSE}
 labs_scatter <- labs(
-    title = "Highest Passers",
+    title = "Passers Over 500 Yards",
     x = "game_year", y = "name)")
 ggp2_scatter <- filter(nfl_stats, pass_yds > 500)|>
     ggplot(
@@ -272,10 +375,27 @@ ggp2_scatter +
 
 ```
 
+***
 
-```{r}
+
+```{r, eval=FALSE}
+labs_scatter <- labs(
+    title = "Highest Passers",
+    x = "game_year", y = "name)")
+ggp2_scatter <- filter(
+  nfl_stats, pass_yds > 500)|>
+    ggplot(
+        aes(x = game_year, 
+            y = name)) +
+    geom_point()
+
+ggp2_scatter + 
+    labs_scatter
 ```
 
-*** 
 
-Graphs for data...
+
+
+
+ 
+

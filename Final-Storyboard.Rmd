@@ -2,7 +2,7 @@
 title: "Josh's NFL Storyboard"
 output: 
   flexdashboard::flex_dashboard:
-    theme: default
+    theme: cosmo
     storyboard: true
 
 ---
@@ -56,7 +56,6 @@ Raw Data https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/da
 
 ### Data {data-commentary-width=350}
 
-Code for obtaining data...
 ```{r NFL_Data, eval=FALSE}
 library(tidyverse)
 library(tidytuesdayR)
@@ -67,7 +66,11 @@ nfl_stats <- NFL_Data$`nfl_2010-2017`
 
 
 ```{r, echo=FALSE}
+# data import for (docs/index.rmd)
+# nfl_stats <- readr::read_csv("../data/raw/nfl_stats.csv")
+# data import for final-storyboard.rmd
 nfl_stats <- readr::read_csv("data/raw/nfl_stats.csv")
+# 
 ```
 
 
@@ -134,7 +137,6 @@ ggp2_grp_bubble +
 
 ***
 
-Code for creating graphs...
 
 ```{r, eval=FALSE}
 labs_grp_bubble <- labs(
@@ -186,7 +188,7 @@ ggp2_scatter +
 
 ***
 
-Code for creating graph...
+
 ```{r, eval=FALSE}
 labs_scatter <- labs(
     title = "Highest Rushers",
@@ -231,7 +233,7 @@ ggp2_grp_bubble +
 
 ***
 
-Code for creating graph...
+
 ```{r, eval=FALSE}
 labs_grp_bubble <- labs(
     title = "Receptions >13",
@@ -281,7 +283,7 @@ ggp2_scatter +
 
 ***
 
-Code for creating graph...
+
 ```{r, eval=FALSE}
 labs_scatter <- labs(
     title = "Highest Recivers",
@@ -327,7 +329,7 @@ ggp2_grp_bubble +
 
 ***
 
-Code for creating graph...
+
 ```{r, eval=FALSE}
 labs_grp_bubble <- labs(
     title = "Pass Attempt Leaders",
@@ -375,7 +377,7 @@ ggp2_scatter +
 
 ***
 
-Code for creating graph...
+
 ```{r, eval=FALSE}
 labs_scatter <- labs(
     title = "Highest Passers",
